@@ -1,46 +1,50 @@
-import { kv } from '@vercel/kv'
-import { OpenAIStream, StreamingTextResponse } from 'ai'
-import { Configuration, OpenAIApi } from 'openai-edge'
+import { NextRequest, NextResponse } from 'next/server';
 
-import { auth } from '@/auth'
-import { nanoid } from '@/lib/utils'
+import { kv } from '@vercel/kv';
+import { OpenAIStream, StreamingTextResponse } from 'ai';
+import { Configuration, OpenAIApi } from 'openai-edge';
 
-export const runtime = 'edge'
+import { auth } from '@/lib/auth';
+import { nanoid } from '@/lib/utils';
+
+export const runtime = 'edge';
 
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY
-})
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
-const openai = new OpenAIApi(configuration)
+const openai = new OpenAIApi(configuration);
 
-export async function POST(req: Request) {
-  const json = await req.json()
-  const { messages, previewToken } = json
-  const userId = (await auth())?.user.id
+export async function POST(req: NextRequest, res: NextResponse) {
+  const session = await auth();
+
+  const json = await req.json();
+  const { messages, previewToken } = json;
+  const userId = session?.user?.id;
 
   if (!userId) {
-    return new Response('Unauthorized', {
-      status: 401
-    })
+    return new NextResponse('Unauthorized', {
+      status: 401,
+    });
   }
 
   if (previewToken) {
-    configuration.apiKey = previewToken
+    configuration.apiKey = previewToken;
   }
 
-  const res = await openai.createChatCompletion({
+  const response = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo',
     messages,
     temperature: 0.7,
-    stream: true
-  })
+    stream: true,
+  });
 
-  const stream = OpenAIStream(res, {
+  const stream = OpenAIStream(response, {
     async onCompletion(completion) {
-      const title = json.messages[0].content.substring(0, 100)
-      const id = json.id ?? nanoid()
-      const createdAt = Date.now()
-      const path = `/chat/${id}`
+      const title = json.messages[0].content.substring(0, 100);
+      const id = json.id ?? nanoid();
+      const createdAt = Date.now();
+      const path = `/chat/${id}`;
       const payload = {
         id,
         title,
@@ -51,17 +55,17 @@ export async function POST(req: Request) {
           ...messages,
           {
             content: completion,
-            role: 'assistant'
-          }
-        ]
-      }
-      await kv.hmset(`chat:${id}`, payload)
+            role: 'assistant',
+          },
+        ],
+      };
+      await kv.hmset(`chat:${id}`, payload);
       await kv.zadd(`user:chat:${userId}`, {
         score: createdAt,
-        member: `chat:${id}`
-      })
-    }
-  })
+        member: `chat:${id}`,
+      });
+    },
+  });
 
-  return new StreamingTextResponse(stream)
+  return new StreamingTextResponse(stream);
 }

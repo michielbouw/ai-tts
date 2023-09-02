@@ -1,34 +1,23 @@
 /** @type {import('prettier').Config} */
 module.exports = {
   endOfLine: 'lf',
-  semi: false,
+  printWidth: 80,
+  semi: true,
   useTabs: false,
   singleQuote: true,
   arrowParens: 'avoid',
   tabWidth: 2,
-  trailingComma: 'none',
+  trailingComma: 'all',
+  plugins: ['@trivago/prettier-plugin-sort-imports'],
   importOrder: [
     '^(react/(.*)$)|^(react$)',
     '^(next/(.*)$)|^(next$)',
     '<THIRD_PARTY_MODULES>',
-    '',
     '^types$',
-    '^@/types/(.*)$',
-    '^@/config/(.*)$',
-    '^@/lib/(.*)$',
-    '^@/hooks/(.*)$',
-    '^@/components/ui/(.*)$',
-    '^@/components/(.*)$',
-    '^@/registry/(.*)$',
-    '^@/styles/(.*)$',
-    '^@/app/(.*)$',
-    '',
+    '^@/(.*)$',
     '^[./]'
   ],
-  importOrderSeparation: false,
+  importOrderSeparation: true,
   importOrderSortSpecifiers: true,
-  importOrderBuiltinModulesToTop: true,
   importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
-  importOrderMergeDuplicateImports: true,
-  importOrderCombineTypeAndValueImports: true
-}
+};

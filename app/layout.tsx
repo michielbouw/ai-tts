@@ -1,36 +1,38 @@
-import { Metadata } from 'next'
+import { Metadata } from 'next';
 
-import { Toaster } from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast';
 
-import '@/app/globals.css'
-import { fontMono, fontSans } from '@/lib/fonts'
-import { cn } from '@/lib/utils'
-import { TailwindIndicator } from '@/components/tailwind-indicator'
-import { Providers } from '@/components/providers'
-import { Header } from '@/components/header'
+import '@/app/globals.css';
+import { AuthProviders } from '@/components/providers/AuthProviders';
+import { ThemeProviders } from '@/components/providers/ThemeProviders';
+import { auth } from '@/lib/auth';
+import { fontMono, fontSans } from '@/lib/fonts';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Next.js AI Chatbot',
-    template: `%s - Next.js AI Chatbot`
+    default: 'AI TTS',
+    template: `AI TTS - %s`,
   },
-  description: 'An AI-powered chatbot template built with Next.js and Vercel.',
+  description: '...',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' }
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
   ],
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png'
-  }
-}
+    apple: '/apple-touch-icon.png',
+  },
+};
 
 interface RootLayoutProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+async function RootLayout({ children }: RootLayoutProps) {
+  const session = await auth();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
@@ -38,19 +40,18 @@ export default function RootLayout({ children }: RootLayoutProps) {
         className={cn(
           'font-sans antialiased',
           fontSans.variable,
-          fontMono.variable
+          fontMono.variable,
         )}
       >
         <Toaster />
-        <Providers attribute="class" defaultTheme="system" enableSystem>
-          <div className="flex flex-col min-h-screen">
-            {/* @ts-ignore */}
-            <Header />
-            <main className="flex flex-col flex-1 bg-muted/50">{children}</main>
-          </div>
-          <TailwindIndicator />
-        </Providers>
+        <AuthProviders session={session}>
+          <ThemeProviders attribute="class" defaultTheme="system" enableSystem>
+            {children}
+          </ThemeProviders>
+        </AuthProviders>
       </body>
     </html>
-  )
+  );
 }
+
+export default RootLayout;

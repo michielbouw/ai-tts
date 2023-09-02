@@ -4,9 +4,14 @@
   "extends": [
     "next/core-web-vitals",
     "prettier",
+    "prettier/prettier",
+    "prettier/react",
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
     "plugin:tailwindcss/recommended"
   ],
-  "plugins": ["tailwindcss"],
+  "plugins": ["tailwindcss", "@trivago/prettier-plugin-sort-imports"],
   "rules": {
     "tailwindcss/no-custom-classname": "off"
   },
