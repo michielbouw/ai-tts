@@ -4,23 +4,14 @@ text-to-speech-ai-powered-tool
 
 ## Technologies
 
-- [Next.js](https://nextjs.org) App Router
-- React Server Components (RSCs), Suspense, and Server Actions
-- [Vercel AI SDK](https://sdk.vercel.ai/docs) for streaming chat UI
-- Support for OpenAI (default), Anthropic, Hugging Face, or custom AI chat models and/or LangChain
-- Edge runtime-ready
-- [shadcn/ui](https://ui.shadcn.com)
-  - Styling with [Tailwind CSS](https://tailwindcss.com)
-  - [Radix UI](https://radix-ui.com) for headless component primitives
-  - Icons from [Phosphor Icons](https://phosphoricons.com)
+- [Vercel](https://vercel.com/solutions/nextjs)
+- [Next.js](https://nextjs.org) v13
+- General styling with [Tailwind CSS](https://tailwindcss.com)
+- [shadcn/ui](https://ui.shadcn.com) styled ui components ([install on Next.js](https://ui.shadcn.com/docs/installation/next)) & [full examples](https://ui.shadcn.com/examples/dashboard)
+- [Radix UI](https://radix-ui.com) for headless [component primitives](https://www.radix-ui.com/primitives/docs/overview/introduction)
+- [NextAuth.js](https://github.com/nextauthjs/next-auth) ([v5/experimental](https://github.com/nextauthjs/next-auth/pull/7443), edge runtime ready) for authentication, based on [Auth.js](https://authjs.dev/)
 - Chat History, rate limiting, and session storage with [Vercel KV](https://vercel.com/storage/kv)
-- [NextAuth.js](https://github.com/nextauthjs/next-auth) for authentication
-
-### Model Providers
-
-This template ships with OpenAI `gpt-3.5-turbo` as the default.
-
-However, thanks to the [Vercel AI SDK](https://sdk.vercel.ai/docs), you can switch LLM providers to [Anthropic](https://anthropic.com), [Hugging Face](https://huggingface.co), or using [LangChain](https://js.langchain.com) with just a few lines of code.
+- [Vercel AI SDK](https://sdk.vercel.ai/docs) with support for OpenAI (default), [Anthropic](https://anthropic.com), [Hugging Face](https://huggingface.co), or custom AI chat models and/or [LangChain](https://js.langchain.com)
 
 ## Creating a KV Database Instance
 
