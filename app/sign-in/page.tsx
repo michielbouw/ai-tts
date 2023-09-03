@@ -4,8 +4,6 @@ import { redirect } from 'next/navigation';
 import { UserAuthForm } from '@/components/auth/UserAuthForm';
 import { auth } from '@/lib/auth';
 
-export const runtime = 'edge';
-
 export const metadata: Metadata = {
   title: 'Sign In',
   description: 'Sign In using SSO or email',

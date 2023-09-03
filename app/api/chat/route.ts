@@ -15,11 +15,8 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const session = await auth();
-
-  const json = await req.json();
-  const { messages, previewToken } = json;
   const userId = session?.user?.id;
 
   if (!userId) {
@@ -27,6 +24,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
       status: 401,
     });
   }
+
+  const json = await req.json();
+  const { messages, previewToken } = json;
 
   if (previewToken) {
     configuration.apiKey = previewToken;
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         ],
       };
       await kv.hmset(`chat:${id}`, payload);
-      await kv.zadd(`user:chat:${userId}`, {
+      await kv.zadd(`users:chat:${userId}`, {
         score: createdAt,
         member: `chat:${id}`,
       });

@@ -27,7 +27,6 @@ export const {
           // @TODO: Add logic here to look up the user from the credentials supplied
           const user: User = {
             id: '1',
-            role: 'admin', // @TODO: expand roles
             name: 'Admin',
             email: 'admin@michielbouw.nl',
           };
@@ -63,8 +62,7 @@ export const {
           profile?.image ??
           token.image ??
           undefined;
-
-        return {
+        const userJwt = {
           role: userRole,
           id: userId,
           name: userName,
@@ -74,6 +72,8 @@ export const {
           exp: token.exp,
           jti: token.jti,
         } as JWT;
+
+        return userJwt;
       }
 
       return token as JWT;

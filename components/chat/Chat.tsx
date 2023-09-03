@@ -11,8 +11,8 @@ import { ChatPanel } from './ChatPanel';
 import { ChatScrollAnchor } from './ChatScrollAnchor';
 
 export interface ChatProps extends React.ComponentProps<'div'> {
-  initialMessages?: Message[];
   id?: string;
+  initialMessages?: Message[];
 }
 
 export function Chat({ id, initialMessages, className }: ChatProps) {
@@ -29,6 +29,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         }
       },
     });
+
   return (
     <>
       <div className={cn('pb-[200px] pt-4 md:pt-10', className)}>
