@@ -11,7 +11,11 @@ export default async function NotFound() {
     <div>
       <h2>Not Found</h2>
       <p>Could not find requested resource</p>
-      {!!session?.user ? <Link href="/dashboard">Back to Home</Link> : <Link href="/sign-in">Sign In</Link>}
+      {session?.user ? (
+        <Link href="/dashboard">Back to Home</Link>
+      ) : (
+        <Link href="/sign-in">Sign In</Link>
+      )}
     </div>
   );
 }

@@ -80,7 +80,7 @@ export function PromptForm({
           spellCheck={false}
           className="min-h-[60px] w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
         />
-        <div className="absolute right-0 bottom-4 sm:right-4">
+        <div className="absolute bottom-4 right-0 sm:right-4">
           <Tooltip>
             <TooltipTrigger asChild>
               <Button

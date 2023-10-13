@@ -4,11 +4,11 @@ import { Separator } from '@/components/elements/Separator';
 
 import { ChatMessage } from './ChatMessage';
 
-export interface ChatList {
+export interface Props {
   messages: Message[];
 }
 
-export function ChatList({ messages }: ChatList) {
+export function ChatList({ messages }: Props) {
   if (!messages.length) {
     return null;
   }

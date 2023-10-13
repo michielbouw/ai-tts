@@ -12,14 +12,14 @@ export const metadata: Metadata = {
 export default async function SignInPage() {
   const session = await auth();
 
-  if (!!session?.user) {
+  if (session?.user) {
     redirect('/');
   }
 
   return (
     <>
-      <div className="md:hidden dark:hidden bg-white" />
-      <div className="md:hidden dark:block bg-black" />
+      <div className="bg-white dark:hidden md:hidden" />
+      <div className="bg-black dark:block md:hidden" />
 
       <div className="container relative hidden min-h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         {/* <Button

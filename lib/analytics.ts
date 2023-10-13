@@ -11,7 +11,7 @@ export const initAnalytics = ({
   const endpoint = process.env.VERCEL_URL;
 
   return {
-    track: async (eventName: string, data?: any) => {
+    track: async (eventName: string, data?: object) => {
       try {
         if (!endpoint && process.env.NODE_ENV === 'development') {
           console.log(

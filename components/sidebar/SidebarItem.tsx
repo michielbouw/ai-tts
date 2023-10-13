@@ -4,12 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { buttonVariants } from '@/components/elements/Button';
-import { IconMessage, IconUsers } from '@/components/elements/Icons';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/elements/Tooltip';
+import { IconMessage } from '@/components/elements/Icons';
 import { cn } from '@/lib/utils';
 import type { Chat } from '@/types/chat';
 

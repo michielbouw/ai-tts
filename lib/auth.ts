@@ -22,8 +22,8 @@ export const {
         username: { label: 'Username', type: 'text', placeholder: 'username' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, req) {
-        if (!!credentials) {
+      async authorize(credentials) {
+        if (credentials) {
           // @TODO: Add logic here to look up the user from the credentials supplied
           const user: User = {
             id: '1',
@@ -84,7 +84,7 @@ export const {
         user: user ?? token,
       } as Session;
     },
-    async signIn({}) {
+    async signIn() {
       const isAllowedToSignIn = true;
       if (isAllowedToSignIn) {
         return true;
