@@ -1,11 +1,16 @@
 import { JWT } from '@auth/core/jwt';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import { PrismaClient } from '@prisma/client';
 import { nanoid } from 'nanoid';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import GitHub from 'next-auth/providers/github';
+import GitHubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/github';
 import { Session } from 'next-auth/types';
 
 import type { User } from '@/types/user';
+
+const prisma = new PrismaClient();
 
 // const ADMIN_PROTECTED_PATHS_EXACT = ['/api/admin', '/admin'];
 
@@ -14,8 +19,8 @@ export const {
   auth,
 } = NextAuth({
   providers: [
-    GitHub,
-    // Google,
+    GitHubProvider,
+    GoogleProvider,
     CredentialsProvider({
       name: 'Username/Password',
       credentials: {
@@ -42,6 +47,7 @@ export const {
       },
     }),
   ],
+  adapter: PrismaAdapter(prisma),
   session: { strategy: 'jwt' },
   callbacks: {
     async jwt({ trigger, token, user, profile }) {

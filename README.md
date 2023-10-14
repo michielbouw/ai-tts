@@ -1,6 +1,6 @@
 # ai-tts
 
-text-to-speech-ai-powered-tool
+AI language model tool & playground
 
 ## Technologies
 
@@ -10,7 +10,7 @@ text-to-speech-ai-powered-tool
 - [shadcn/ui](https://ui.shadcn.com) styled ui components ([install on Next.js](https://ui.shadcn.com/docs/installation/next)) & [full examples](https://ui.shadcn.com/examples/dashboard)
 - [Radix UI](https://radix-ui.com) for headless [component primitives](https://www.radix-ui.com/primitives/docs/overview/introduction)
 - [NextAuth.js](https://github.com/nextauthjs/next-auth) ([v5/experimental](https://github.com/nextauthjs/next-auth/pull/7443), edge runtime ready) for authentication, based on [Auth.js](https://authjs.dev/)
-- Chat History, rate limiting, and session storage with [Vercel KV](https://vercel.com/storage/kv)
+- History with [Vercel KV](https://vercel.com/storage/kv)
 - [Vercel AI SDK](https://sdk.vercel.ai/docs) with support for OpenAI (default), [Anthropic](https://anthropic.com), [Hugging Face](https://huggingface.co), or custom AI chat models and/or [LangChain](https://js.langchain.com)
 
 ## Creating a KV Database Instance
@@ -21,7 +21,7 @@ Remember to update your environment variables (`KV_URL`, `KV_REST_API_URL`, `KV_
 
 ## Running locally
 
-You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js AI Chatbot. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
+You will need to use the environment variables [defined in `.env.example`](.env.example) to run. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
 
 Pre:
 

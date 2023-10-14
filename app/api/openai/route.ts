@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       const title = json.messages[0].content.substring(0, 100);
       const id = json.id ?? nanoid();
       const createdAt = Date.now();
-      const path = `/chat/${id}`;
+      const path = `/stream/${id}`;
       const payload = {
         id,
         title,
@@ -59,10 +59,10 @@ export async function POST(req: NextRequest) {
           },
         ],
       };
-      await kv.hmset(`chat:${id}`, payload);
-      await kv.zadd(`users:chat:${userId}`, {
+      await kv.hmset(`command:${id}`, payload);
+      await kv.zadd(`users:command:${userId}`, {
         score: createdAt,
-        member: `chat:${id}`,
+        member: `command:${id}`,
       });
     },
   });

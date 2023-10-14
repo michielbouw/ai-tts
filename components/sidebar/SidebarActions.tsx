@@ -23,15 +23,21 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/elements/Tooltip';
-import type { Chat } from '@/types/chat';
+import type { Command } from '@/types/command';
 import type { ServerActionResult } from '@/types/server';
 
 interface SidebarActionsProps {
-  chat: Chat;
-  removeChat: (args: { id: string; path: string }) => ServerActionResult<void>;
+  command: Command;
+  removeCommand: (args: {
+    id: string;
+    path: string;
+  }) => ServerActionResult<void>;
 }
 
-export function SidebarActions({ chat, removeChat }: SidebarActionsProps) {
+export function SidebarActions({
+  command,
+  removeCommand,
+}: SidebarActionsProps) {
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
   const [isRemovePending, startRemoveTransition] = React.useTransition();
   const router = useRouter();
@@ -51,7 +57,7 @@ export function SidebarActions({ chat, removeChat }: SidebarActionsProps) {
               <span className="sr-only">Delete</span>
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Delete chat</TooltipContent>
+          <TooltipContent>Delete command</TooltipContent>
         </Tooltip>
       </div>
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
@@ -59,8 +65,8 @@ export function SidebarActions({ chat, removeChat }: SidebarActionsProps) {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will permanently delete your chat message and remove your
-              data from our servers.
+              This will permanently delete your command and remove your data
+              from our servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -72,9 +78,9 @@ export function SidebarActions({ chat, removeChat }: SidebarActionsProps) {
               onClick={event => {
                 event.preventDefault();
                 startRemoveTransition(async () => {
-                  const result = await removeChat({
-                    id: chat.id,
-                    path: chat.path,
+                  const result = await removeCommand({
+                    id: command.id,
+                    path: command.path,
                   });
 
                   if (result && 'error' in result) {

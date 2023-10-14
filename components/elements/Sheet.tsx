@@ -24,6 +24,7 @@ SheetPortal.displayName = SheetPrimitive.Portal.displayName;
 const SheetOverlay = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 >(({ className, children, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cn(
@@ -44,7 +45,7 @@ const SheetContent = React.forwardRef<
     <SheetPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed inset-y-0 left-0 z-50 h-full border-r bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left data-[state=closed]:duration-300 data-[state=open]:duration-500 sm:max-w-sm',
+        'fixed inset-y-0 left-0 z-50 h-full border-r bg-background p-6 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm',
         className,
       )}
       {...props}

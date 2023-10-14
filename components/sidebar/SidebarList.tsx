@@ -1,4 +1,4 @@
-import { getChats, removeChat } from '@/app/actions';
+import { getCommands, removeCommand } from '@/app/actions';
 import { SidebarActions } from '@/components/sidebar/SidebarActions';
 import { SidebarItem } from '@/components/sidebar/SidebarItem';
 
@@ -7,24 +7,27 @@ export interface SidebarListProps {
 }
 
 export async function SidebarList({ userId }: SidebarListProps) {
-  const chats = await getChats(userId);
+  const commands = await getCommands(userId);
 
   return (
     <div className="flex-1 overflow-auto">
-      {chats?.length ? (
+      {commands?.length ? (
         <div className="space-y-2 px-2">
-          {chats.map(
-            chat =>
-              chat && (
-                <SidebarItem key={chat?.id} chat={chat}>
-                  <SidebarActions chat={chat} removeChat={removeChat} />
+          {commands.map(
+            command =>
+              command && (
+                <SidebarItem key={command?.id} command={command}>
+                  <SidebarActions
+                    command={command}
+                    removeCommand={removeCommand}
+                  />
                 </SidebarItem>
               ),
           )}
         </div>
       ) : (
         <div className="p-8 text-center">
-          <p className="text-sm text-muted-foreground">No chat history</p>
+          <p className="text-sm text-muted-foreground">No command history</p>
         </div>
       )}
     </div>

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { clearChats } from '@/app/actions';
-import { ClearHistory } from '@/components/chat/ClearHistory';
+import { clearCommands } from '@/app/actions';
 import { IconSeparator } from '@/components/elements/Icons';
+import { ClearHistory } from '@/components/playground/ClearHistory';
 import { Sidebar } from '@/components/sidebar/Sidebar';
 import { SidebarFooter } from '@/components/sidebar/SidebarFooter';
 import { SidebarList } from '@/components/sidebar/SidebarList';
@@ -22,7 +22,7 @@ export async function MainNav() {
             <SidebarList userId={session?.user?.id} />
           </React.Suspense>
           <SidebarFooter>
-            <ClearHistory clearChats={clearChats} />
+            <ClearHistory clearCommands={clearCommands} />
           </SidebarFooter>
         </Sidebar>
       )}

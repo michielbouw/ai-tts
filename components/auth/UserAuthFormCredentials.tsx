@@ -6,10 +6,10 @@ import { redirect } from 'next/navigation';
 
 import { signIn } from 'next-auth/react';
 
+import { Input } from '@/components/auth/Input';
+import { Label } from '@/components/auth/Label';
 import { Button } from '@/components/elements/Button';
 import { IconSpinner } from '@/components/elements/Icons';
-import { Input } from '@/components/elements/Input';
-import { Label } from '@/components/elements/Label';
 
 interface UserAuthFormCredentialsProps {
   callbackUrl: string;

@@ -22,10 +22,10 @@ import { IconSpinner } from '@/components/elements/Icons';
 import type { ServerActionResult } from '@/types/server';
 
 interface ClearHistoryProps {
-  clearChats: () => ServerActionResult<void>;
+  clearCommands: () => ServerActionResult<void>;
 }
 
-export function ClearHistory({ clearChats }: ClearHistoryProps) {
+export function ClearHistory({ clearCommands }: ClearHistoryProps) {
   const [open, setOpen] = React.useState(false);
   const [isPending, startTransition] = React.useTransition();
   const router = useRouter();
@@ -42,8 +42,8 @@ export function ClearHistory({ clearChats }: ClearHistoryProps) {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This will permanently delete your chat history and remove your data
-            from our servers.
+            This will permanently delete your command history and remove your
+            data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -53,7 +53,7 @@ export function ClearHistory({ clearChats }: ClearHistoryProps) {
             onClick={event => {
               event.preventDefault();
               startTransition(async () => {
-                const result = await clearChats();
+                const result = await clearCommands();
 
                 if (result && 'error' in result) {
                   toast.error(result.error);

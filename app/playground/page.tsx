@@ -1,24 +1,24 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import { Chat } from '@/components/chat/Chat';
+import { Playground } from '@/components/playground/Playground';
 import { auth } from '@/lib/auth';
 import { nanoid } from '@/lib/utils';
 
 export const runtime = 'edge';
 
 export const metadata: Metadata = {
-  title: 'Chat (new)',
+  title: 'Playground (new)',
 };
 
-export default async function ChatNewPage() {
+export default async function PlaygroundPage() {
   const session = await auth();
 
   if (!session?.user) {
-    redirect('/sign-in?callbackUrl=/chat');
+    redirect('/sign-in?callbackUrl=/playground');
   }
 
   const id = nanoid();
 
-  return <Chat id={id} />;
+  return <Playground id={id} />;
 }

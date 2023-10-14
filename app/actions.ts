@@ -6,42 +6,53 @@ import { redirect } from 'next/navigation';
 import { kv } from '@vercel/kv';
 
 import { auth } from '@/lib/auth';
-import type { Chat } from '@/types/chat';
+import type { Command } from '@/types/command';
 
-export async function getChats(userId?: string | null) {
+export async function getCommands(userId?: string | null) {
   if (!userId) {
     return [];
   }
 
   try {
     const pipeline = kv.pipeline();
-    const chats: string[] = await kv.zrange(`users:chat:${userId}`, 0, -1, {
-      rev: true,
-    });
+    const commands: string[] = await kv.zrange(
+      `users:command:${userId}`,
+      0,
+      -1,
+      {
+        rev: true,
+      },
+    );
 
-    for (const chat of chats) {
-      pipeline.hgetall(chat);
+    for (const command of commands) {
+      pipeline.hgetall(command);
     }
 
     const results = await pipeline.exec();
 
-    return results as Chat[];
+    return results as Command[];
   } catch (error) {
     return [];
   }
 }
 
-export async function getChat(id: string, userId: string) {
-  const chat = await kv.hgetall<Chat>(`chat:${id}`);
+export async function getCommand(id: string, userId: string) {
+  const command = await kv.hgetall<Command>(`command:${id}`);
 
-  if (!chat || (userId && chat.userId !== userId)) {
+  if (!command || (userId && command.userId !== userId)) {
     return null;
   }
 
-  return chat;
+  return command;
 }
 
-export async function removeChat({ id, path }: { id: string; path: string }) {
+export async function removeCommand({
+  id,
+  path,
+}: {
+  id: string;
+  path: string;
+}) {
   const session = await auth();
 
   if (!session?.user) {
@@ -50,7 +61,7 @@ export async function removeChat({ id, path }: { id: string; path: string }) {
     };
   }
 
-  const uid = await kv.hget<string>(`chat:${id}`, 'userId');
+  const uid = await kv.hget<string>(`command:${id}`, 'userId');
 
   if (uid !== session?.user?.id) {
     return {
@@ -58,14 +69,14 @@ export async function removeChat({ id, path }: { id: string; path: string }) {
     };
   }
 
-  await kv.del(`chat:${id}`);
-  await kv.zrem(`users:chat:${session.user.id}`, `chat:${id}`);
+  await kv.del(`command:${id}`);
+  await kv.zrem(`users:command:${session.user.id}`, `command:${id}`);
 
   revalidatePath('/');
   return revalidatePath(path);
 }
 
-export async function clearChats() {
+export async function clearCommands() {
   const session = await auth();
 
   if (!session?.user) {
@@ -74,19 +85,19 @@ export async function clearChats() {
     };
   }
 
-  const chats: string[] = await kv.zrange(
-    `users:chat:${session.user.id}`,
+  const commands: string[] = await kv.zrange(
+    `users:command:${session.user.id}`,
     0,
     -1,
   );
-  if (!chats.length) {
+  if (!commands.length) {
     return redirect('/');
   }
   const pipeline = kv.pipeline();
 
-  for (const chat of chats) {
-    pipeline.del(chat);
-    pipeline.zrem(`users:chat:${session.user.id}`, chat);
+  for (const command of commands) {
+    pipeline.del(command);
+    pipeline.zrem(`users:command:${session.user.id}`, command);
   }
 
   await pipeline.exec();
