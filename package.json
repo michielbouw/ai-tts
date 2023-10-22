@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit",
     "format:write": "prettier --write \"{app,lib,components}/**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"{app,lib,components}**/*.{ts,tsx,mdx}\" --cache",
+    "postinstall": "prisma generate",
     "postgres:migrate": "dotenv -e .env.local -- npx prisma migrate dev"
   },
   "prisma": {
