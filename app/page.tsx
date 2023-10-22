@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 
+import { AUTH_PAGE } from '@/constants/auth';
 import { auth } from '@/lib/auth';
 
 export default async function HomePage() {
@@ -8,6 +9,6 @@ export default async function HomePage() {
   if (session?.user) {
     redirect('/playground');
   } else {
-    redirect('/sign-in');
+    redirect(`/${AUTH_PAGE}`);
   }
 }

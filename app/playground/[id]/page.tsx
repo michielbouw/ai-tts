@@ -3,9 +3,8 @@ import { notFound, redirect } from 'next/navigation';
 
 import { getCommand } from '@/app/actions';
 import { Playground } from '@/components/playground/Playground';
+import { AUTH_PAGE } from '@/constants/auth';
 import { auth } from '@/lib/auth';
-
-export const runtime = 'edge';
 
 export interface PlaygroundByIdPagePageProps {
   params: {
@@ -34,7 +33,7 @@ export default async function PlaygroundByIdPage({
   const session = await auth();
 
   if (!session?.user) {
-    redirect(`/sign-in?callbackUrl=/playground/${params.id}`);
+    redirect(`/${AUTH_PAGE}?callbackUrl=/playground/${params.id}`);
   }
 
   const command = await getCommand(params.id, session.user.id);

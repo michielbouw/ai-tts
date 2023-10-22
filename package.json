@@ -11,7 +11,11 @@
     "preview": "next build && next start",
     "typecheck": "tsc --noEmit",
     "format:write": "prettier --write \"{app,lib,components}/**/*.{ts,tsx,mdx}\" --cache",
-    "format:check": "prettier --check \"{app,lib,components}**/*.{ts,tsx,mdx}\" --cache"
+    "format:check": "prettier --check \"{app,lib,components}**/*.{ts,tsx,mdx}\" --cache",
+    "postgres:migrate": "dotenv -e .env.local -- npx prisma migrate dev"
+  },
+  "prisma": {
+    "seed": "dotenv -e .env.local -- ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
     "@auth/core": "0.x.x",
@@ -35,6 +39,7 @@
     "@vercel/kv": "0.x.x",
     "@vercel/og": "0.x.x",
     "ai": "2.x.x",
+    "bcryptjs": "^2.4.3",
     "class-variance-authority": "0.x.x",
     "clsx": "2.x.x",
     "cmdk": "^0.2.0",
@@ -57,6 +62,7 @@
   "devDependencies": {
     "@tailwindcss/typography": "0.x.x",
     "@trivago/prettier-plugin-sort-imports": "4.x.x",
+    "@types/bcryptjs": "^2.4.5",
     "@types/node": "20.x.x",
     "@types/react": "18.x.x",
     "@types/react-dom": "18.x.x",
@@ -64,6 +70,7 @@
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "6.x.x",
     "autoprefixer": "10.x.x",
+    "dotenv-cli": "^7.3.0",
     "eslint": "8.x.x",
     "eslint-config-next": "13.x.x",
     "eslint-config-prettier": "8.x.x",
@@ -75,6 +82,7 @@
     "tailwind-merge": "1.x.x",
     "tailwindcss": "3.x.x",
     "tailwindcss-animate": "1.x.x",
+    "ts-node": "^10.9.1",
     "typescript": "5.x.x"
   },
   "resolutions": {

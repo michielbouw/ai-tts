@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import { UserAuthForm } from '@/components/auth/UserAuthForm';
+import UserAuth from '@/components/auth/UserAuth';
 import { auth } from '@/lib/auth';
 
 export const metadata: Metadata = {
@@ -38,37 +38,8 @@ export default async function SignInPage() {
             </blockquote>
           </div>
         </div>
-        <div className="lg:p-8">
-          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-            <div className="flex flex-col space-y-2 text-center">
-              <h1 className="text-2xl font-semibold tracking-tight">
-                Sign In / Sign Up
-              </h1>
-              <p className="text-sm text-muted-foreground">
-                Sign in to an existing or sign up to a new account
-              </p>
-            </div>
-            <UserAuthForm />
-            <p className="px-8 text-center text-sm text-muted-foreground">
-              By clicking continue, you agree to our Terms of Service and
-              Privacy Policy
-              {/* {' '} */}
-              {/* <Link
-                href="/terms"
-                className="underline underline-offset-4 hover:text-primary"
-              >
-                Terms of Service
-              </Link>{' '}
-              and{' '}
-              <Link
-                href="/privacy"
-                className="underline underline-offset-4 hover:text-primary"
-              >
-                Privacy Policy
-              </Link> */}
-              .
-            </p>
-          </div>
+        <div className="flex h-full bg-background lg:p-8">
+          <UserAuth />
         </div>
       </div>
     </>

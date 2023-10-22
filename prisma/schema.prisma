@@ -15,7 +15,7 @@ generator client {
 model Account {
   id                 String   @id @default(cuid())
   createdAt          DateTime @default(now())
-  state              String   @default("inactive")
+  state              String   @default("new")
   userId             String
   type               String
   provider           String
@@ -48,6 +48,7 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
+  password      String?
   image         String?
   accounts      Account[]
   sessions      Session[]

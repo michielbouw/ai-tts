@@ -75,7 +75,7 @@ export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
         <PopoverPortal>
           <PopoverContent
             align="end"
-            className="w-[250px] rounded bg-white p-0 shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)]"
+            className="w-[250px] rounded bg-white p-0"
           >
             <HoverCard open>
               <HoverCardPortal>
@@ -83,7 +83,7 @@ export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
                   side="left"
                   align="start"
                   forceMount
-                  className="min-h-[280px] rounded-md bg-white p-5 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] "
+                  className="min-h-[280px] rounded-md bg-white p-5"
                 >
                   <div className="grid gap-2">
                     <h4 className="font-medium leading-none">
